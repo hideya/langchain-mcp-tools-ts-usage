@@ -1,7 +1,7 @@
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
-import { MemorySaver } from '@langchain/langgraph';
 import { HumanMessage } from '@langchain/core/messages';
-import { ChatOpenAI } from '@langchain/openai';
+import { ChatAnthropic } from '@langchain/anthropic';
+// import { ChatOpenAI } from '@langchain/openai';
 import { convertMCPServersToLangChainTools, MCPServersConfig } from '@h1deya/mcp-langchain-tools';
 
 export async function test(): Promise<void> {
@@ -28,15 +28,20 @@ export async function test(): Promise<void> {
 
   const { tools, cleanup } = await convertMCPServersToLangChainTools(mcpServers);
 
-  const llm = new ChatOpenAI({ model: 'gpt-4o-mini', temperature: 0, maxTokens: 1000 });
+  const llm = new ChatAnthropic({
+    model: 'claude-3-5-haiku-latest', temperature: 0, maxTokens: 1000
+  });
+  // const llm = new ChatOpenAI({
+  //   model: 'gpt-4o-mini', temperature: 0, maxTokens: 1000
+  // });
 
   const agent = createReactAgent({
     llm,
-    tools,
-    checkpointSaver: new MemorySaver()
+    tools
   });
 
   const query = 'Read the news headlines on cnn.com';
+  // const query = 'Read and briefly summarize the LICENSE file';
 
   console.log('\x1b[33m');  // color to yellow
   console.log(query);

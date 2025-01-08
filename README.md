@@ -9,7 +9,14 @@ which initializes specified MCP servers,
 and returns [LangChain Tools](https://js.langchain.com/docs/how_to/tool_calling/)
 that wrap the given MCP servers.
 
-OpenAI's `gpt-4o-mini` is used as the LLM.
+Anthropic's `claude-3-5-haiku-latest` is used as the LLM.  
+For convenience, code for OpenAI's `gpt-4o-mini` is also included and commented out.
+
+## Requirements
+
+- Node.js version 16 or higher installed
+- `ANTHROPIC_API_KEY` - get one from [Anthropic](https://console.anthropic.com/settings/keys)  
+  If you switch to using OpenAI's LLM, get `OPENAI_API_KEY` from [OpenAI](https://platform.openai.com/api-keys)
 
 ## Usage
 
@@ -21,7 +28,8 @@ OpenAI's `gpt-4o-mini` is used as the LLM.
 
 2. Setup API key
     ```bash
-    export OPENAI_API_KEY=sk-proj-...
+    export ANTHROPIC_API_KEY=sk-ant-api...
+    # export OPENAI_API_KEY=sk-proj-...
     ```
 
 3. Run the app
