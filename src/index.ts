@@ -36,7 +36,7 @@ export async function test(): Promise<void> {
     checkpointSaver: new MemorySaver()
   });
 
-  const query = 'Read and briefly summarize the file ./LICENSE';
+  const query = 'Read the news headlines on cnn.com';
 
   console.log('\x1b[33m');  // color to yellow
   console.log(query);

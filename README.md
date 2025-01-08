@@ -1,4 +1,4 @@
-# Simple MCP Client Using LangChain / TypeScript [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hideya/react/blob/main/LICENSE)
+# Simple MCP Client Using LangChain / TypeScript [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hideya/mcp-langchain-tools-ts-usage/blob/main/LICENSE)
 
 This simple MCP-client demonstrates
 [Model Context Protocol](https://modelcontextprotocol.io/) server invocations from
