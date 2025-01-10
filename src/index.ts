@@ -2,12 +2,15 @@ import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatAnthropic } from '@langchain/anthropic';
 // import { ChatOpenAI } from '@langchain/openai';
-import { convertMCPServersToLangChainTools, MCPServersConfig } from '@h1deya/mcp-langchain-tools';
+import { convertMCPServersToLangChainTools, MCPServersConfig } from '@h1deya/langchain-mcp-tools';
 
 export async function test(): Promise<void> {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('OPENAI_API_KEY environment variable needs to be set');
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error('ANTHROPIC_API_KEY environment variable needs to be set');
   }
+  // if (!process.env.OPENAI_API_KEY) {
+  //   throw new Error('OPENAI_API_KEY environment variable needs to be set');
+  // }
 
   const mcpServers: MCPServersConfig = {
     filesystem: {
