@@ -1,13 +1,13 @@
 # Simple MCP Client Using LangChain / TypeScript [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hideya/mcp-langchain-tools-ts-usage/blob/main/LICENSE)
 
-This simple MCP-client demonstrates
-[Model Context Protocol](https://modelcontextprotocol.io/) server invocations from
-LangChain ReAct Agent by wrapping MCP server tools into LangChain Tools.
+This simple [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+client demonstrates MCP server invocations by LangChain ReAct Agent.
 
-It leverages [`@h1deya/mcp-langchain-tools`](https://www.npmjs.com/package/@h1deya/mcp-langchain-tools) package,
+It leverages a utility function `convertMCPServersToLangChainTools()` from
+[`@h1deya/langchain-mcp-tools`](https://www.npmjs.com/package/@h1deya/langchain-mcp-tools),
 which initializes specified MCP servers,
 and returns [LangChain Tools](https://js.langchain.com/docs/how_to/tool_calling/)
-that wrap the given MCP servers.
+that wrap all the tools found in the MCP servers.
 
 Anthropic's `claude-3-5-haiku-latest` is used as the LLM.  
 For convenience, code for OpenAI's `gpt-4o-mini` is also included and commented out.

@@ -2,7 +2,7 @@ import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatAnthropic } from '@langchain/anthropic';
 // import { ChatOpenAI } from '@langchain/openai';
-import { convertMCPServersToLangChainTools, MCPServersConfig } from '@h1deya/langchain-mcp-tools';
+import { convertMcpToLangchainTools, McpServersConfig } from '@h1deya/langchain-mcp-tools';
 
 export async function test(): Promise<void> {
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -12,7 +12,7 @@ export async function test(): Promise<void> {
   //   throw new Error('OPENAI_API_KEY environment variable needs to be set');
   // }
 
-  const mcpServers: MCPServersConfig = {
+  const mcpServers: McpServersConfig = {
     filesystem: {
       command: 'npx',
       args: [
@@ -29,7 +29,7 @@ export async function test(): Promise<void> {
     }
   };
 
-  const { tools, cleanup } = await convertMCPServersToLangChainTools(mcpServers);
+  const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
 
   const llm = new ChatAnthropic({
     model: 'claude-3-5-haiku-latest', temperature: 0, maxTokens: 1000
@@ -43,7 +43,7 @@ export async function test(): Promise<void> {
     tools
   });
 
-  const query = 'Read the news headlines on cnn.com';
+  const query = 'Read the news headlines on bbc.com';
   // const query = 'Read and briefly summarize the LICENSE file';
 
   console.log('\x1b[33m');  // color to yellow
