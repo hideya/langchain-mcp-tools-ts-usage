@@ -2,7 +2,16 @@ import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatAnthropic } from '@langchain/anthropic';
 // import { ChatOpenAI } from '@langchain/openai';
-import { convertMcpToLangchainTools, McpServersConfig } from '@h1deya/langchain-mcp-tools';
+import dotenv from 'dotenv';
+
+// Initialize environment variables
+dotenv.config();
+
+import {
+  convertMcpToLangchainTools,
+  McpServersConfig,
+  McpServerCleanupFn
+} from '@h1deya/langchain-mcp-tools';
 
 export async function test(): Promise<void> {
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -12,56 +21,62 @@ export async function test(): Promise<void> {
   //   throw new Error('OPENAI_API_KEY environment variable needs to be set');
   // }
 
-  const mcpServers: McpServersConfig = {
-    filesystem: {
-      command: 'npx',
-      args: [
-        '-y',
-        '@modelcontextprotocol/server-filesystem',
-        '.'  // path to a directory to allow access to
-      ]
-    },
-    fetch: {
-      command: 'uvx',
-      args: [
-        'mcp-server-fetch'
-      ]
-    }
-  };
+  let mcpCleanup: McpServerCleanupFn | undefined;
 
-  const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
+  try {
+    const mcpServers: McpServersConfig = {
+      filesystem: {
+        command: 'npx',
+        args: [
+          '-y',
+          '@modelcontextprotocol/server-filesystem',
+          '.'  // path to a directory to allow access to
+        ]
+      },
+      fetch: {
+        command: 'uvx',
+        args: [
+          'mcp-server-fetch'
+        ]
+      }
+    };
 
-  const llm = new ChatAnthropic({
-    model: 'claude-3-5-haiku-latest', temperature: 0, maxTokens: 1000
-  });
-  // const llm = new ChatOpenAI({
-  //   model: 'gpt-4o-mini', temperature: 0, maxTokens: 1000
-  // });
+    const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
+    mcpCleanup = cleanup
 
-  const agent = createReactAgent({
-    llm,
-    tools
-  });
+    const llm = new ChatAnthropic({
+      model: 'claude-3-5-haiku-latest', temperature: 0, maxTokens: 1000
+    });
+    // const llm = new ChatOpenAI({
+    //   model: 'gpt-4o-mini', temperature: 0, maxTokens: 1000
+    // });
 
-  const query = 'Read the news headlines on bbc.com';
-  // const query = 'Read and briefly summarize the LICENSE file';
+    const agent = createReactAgent({
+      llm,
+      tools
+    });
 
-  console.log('\x1b[33m');  // color to yellow
-  console.log(query);
-  console.log('\x1b[0m');  // reset the color
+    const query = 'Read the news headlines on bbc.com';
+    // const query = 'Read and briefly summarize the LICENSE file';
 
-  const agentFinalState = await agent.invoke(
-    { messages: [new HumanMessage(query)] },
-    { configurable: { thread_id: 'test-thread' } }
-  );
+    console.log('\x1b[33m');  // color to yellow
+    console.log(query);
+    console.log('\x1b[0m');  // reset the color
 
-  const result = agentFinalState.messages[agentFinalState.messages.length - 1].content;
+    const agentFinalState = await agent.invoke(
+      { messages: [new HumanMessage(query)] },
+      { configurable: { thread_id: 'test-thread' } }
+    );
 
-  console.log('\x1b[36m');  // color to cyan
-  console.log(result);
-  console.log('\x1b[0m');  // reset the color
+    const result = agentFinalState.messages[agentFinalState.messages.length - 1].content;
 
-  cleanup();
+    console.log('\x1b[36m');  // color to cyan
+    console.log(result);
+    console.log('\x1b[0m');  // reset the color
+
+  } finally {
+    await mcpCleanup?.();
+  }
 }
 
 test().catch((error: unknown) => {
