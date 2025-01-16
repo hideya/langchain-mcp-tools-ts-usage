@@ -1,7 +1,7 @@
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatAnthropic } from '@langchain/anthropic';
-// import { ChatOpenAI } from '@langchain/openai';
+import { ChatOpenAI } from '@langchain/openai';
 import dotenv from 'dotenv';
 
 // Initialize environment variables
