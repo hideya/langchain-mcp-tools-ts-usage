@@ -64,8 +64,7 @@ export async function test(): Promise<void> {
     console.log('\x1b[0m');  // reset the color
 
     const agentFinalState = await agent.invoke(
-      { messages: [new HumanMessage(query)] },
-      { configurable: { thread_id: 'test-thread' } }
+      { messages: [new HumanMessage(query)] }
     );
 
     const result = agentFinalState.messages[agentFinalState.messages.length - 1].content;
