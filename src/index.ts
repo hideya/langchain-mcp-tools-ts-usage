@@ -63,14 +63,15 @@ export async function test(): Promise<void> {
     console.log(query);
     console.log('\x1b[0m');  // reset the color
 
-    const agentFinalState = await agent.invoke(
-      { messages: [new HumanMessage(query)] }
-    );
+    const messages =  { messages: [new HumanMessage(query)] }
 
-    const result = agentFinalState.messages[agentFinalState.messages.length - 1].content;
+    const result = await agent.invoke(messages);
+
+    // the last message should be an AIMessage
+    const response = result.messages[result.messages.length - 1].content;
 
     console.log('\x1b[36m');  // color to cyan
-    console.log(result);
+    console.log(response);
     console.log('\x1b[0m');  // reset the color
 
   } finally {
