@@ -18,9 +18,11 @@ A bit more realistic (conversational) MCP Client is available
 A python equivalent of this app is available
 [here](https://github.com/hideya/langchain-mcp-tools-py-usage)
 
-## Requirements
+## Prerequisites
 
 - Node.js 16+
+- npm 7+ to run TypeScript-based MCP servers
+- [`uv`](https://docs.astral.sh/uv/) installed to run Python-based MCP servers
 - API key from [Anthropic](https://console.anthropic.com/settings/keys)
   (or [OpenAI](https://platform.openai.com/api-keys))
 
