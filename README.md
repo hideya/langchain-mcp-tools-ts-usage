@@ -21,8 +21,8 @@ A python equivalent of this app is available
 ## Prerequisites
 
 - Node.js 16+
-- npm 7+ to run TypeScript-based MCP servers
-- [`uv`](https://docs.astral.sh/uv/) installed to run Python-based MCP servers
+- npm 7+ (`npx`) to run Node.js-based MCP servers
+- [`uv` (`uvx`)](https://docs.astral.sh/uv/) installed to run Python-based MCP servers
 - API key from [Anthropic](https://console.anthropic.com/settings/keys)
   (or [OpenAI](https://platform.openai.com/api-keys))
 
