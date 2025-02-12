@@ -9,8 +9,8 @@ This function handles parallel initialization of specified multiple MCP servers
 and converts their available tools into an array of LangChain-compatible tools
 ([`StructuredTool[]`](https://api.js.langchain.com/classes/_langchain_core.tools.StructuredTool.html)).
 
-Anthropic's `claude-3-5-haiku-latest` is used as the LLM.  
-For convenience, code for OpenAI's `gpt-4o-mini` is also included and commented out.
+Anthropic's `claude-3-5-sonnet-latest` is used as the LLM.
+For convenience, code for OpenAI's `gpt-4o` is also included and commented out.
 
 A bit more realistic (conversational) MCP Client is available
 [here](https://github.com/hideya/mcp-client-langchain-ts)

@@ -45,10 +45,10 @@ export async function test(): Promise<void> {
     mcpCleanup = cleanup
 
     const llm = new ChatAnthropic({
-      model: 'claude-3-5-haiku-latest', temperature: 0, maxTokens: 1000
+      model: 'claude-3-5-sonnet-latest', temperature: 0, maxTokens: 1000
     });
     // const llm = new ChatOpenAI({
-    //   model: 'gpt-4o-mini', temperature: 0, maxTokens: 1000
+    //   model: 'gpt-4o', temperature: 0, maxTokens: 1000
     // });
 
     const agent = createReactAgent({
