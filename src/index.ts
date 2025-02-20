@@ -5,6 +5,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import dotenv from 'dotenv';
 
 // Initialize environment variables
+// Be sure to set ANTHROPIC_API_KEY and/or OPENAI_API_KEY as needed
 dotenv.config();
 
 import {
@@ -14,13 +15,6 @@ import {
 } from '@h1deya/langchain-mcp-tools';
 
 export async function test(): Promise<void> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error('ANTHROPIC_API_KEY environment variable needs to be set');
-  }
-  // if (!process.env.OPENAI_API_KEY) {
-  //   throw new Error('OPENAI_API_KEY environment variable needs to be set');
-  // }
-
   let mcpCleanup: McpServerCleanupFn | undefined;
 
   try {
