@@ -32,7 +32,14 @@ export async function test(): Promise<void> {
         args: [
           'mcp-server-fetch'
         ]
-      }
+      },
+      weather: {
+        command: 'npx',
+        args: [
+          '-y',
+         '@h1deya/mcp-server-weather'
+        ]
+      },
     };
 
     const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
@@ -50,8 +57,9 @@ export async function test(): Promise<void> {
       tools
     });
 
-    const query = 'Read the news headlines on bbc.com';
+    // const query = 'Read the news headlines on bbc.com';
     // const query = 'Read and briefly summarize the LICENSE file';
+    const query = "Tomorrow's weather in SF?"
 
     console.log('\x1b[33m');  // color to yellow
     console.log(query);
