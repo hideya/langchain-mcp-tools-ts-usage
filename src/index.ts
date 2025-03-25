@@ -11,7 +11,8 @@ dotenv.config();
 import {
   convertMcpToLangchainTools,
   McpServersConfig,
-  McpServerCleanupFn
+  McpServerCleanupFn,
+  McpToolsLogger
 } from '@h1deya/langchain-mcp-tools';
 
 export async function test(): Promise<void> {
@@ -42,7 +43,25 @@ export async function test(): Promise<void> {
       },
     };
 
+    // // Custom logger example
+    // class SimpleConsoleLogger implements McpToolsLogger {
+    //   constructor(private readonly prefix: string = 'MCP') {}
+
+    //   private createLogMethod(level: string) {
+    //     return (...args: unknown[]) => console.log(`\x1b[90m${level}:\x1b[0m`, ...args);
+    //   }
+
+    //   debug = this.createLogMethod('DEBUG');
+    //   info = this.createLogMethod('INFO');
+    //   warn = this.createLogMethod('WARN');
+    //   error = this.createLogMethod('ERROR');
+    // }
+
     const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
+    // const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers, { logLevel: 'debug' });
+    // const { tools, cleanup } = await convertMcpToLangchainTools(
+    //   mcpServers, { logger: new SimpleConsoleLogger()
+    // });
     mcpCleanup = cleanup
 
     // const llm = new ChatAnthropic({
