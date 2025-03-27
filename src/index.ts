@@ -3,6 +3,7 @@ import { HumanMessage } from '@langchain/core/messages';
 import { ChatAnthropic } from '@langchain/anthropic';
 import { ChatOpenAI } from '@langchain/openai';
 import dotenv from 'dotenv';
+import * as fs from 'fs';
 
 // Initialize environment variables
 // Be sure to set ANTHROPIC_API_KEY and/or OPENAI_API_KEY as needed
@@ -43,18 +44,25 @@ export async function test(): Promise<void> {
       },
     };
 
+    // // Set filedescriptor to which MCP server's stderr is redirected
+    // Object.keys(mcpServers).forEach(serverName => {
+    //   const logPath = `mcp-server-${serverName}.log`;
+    //   const logFd = fs.openSync(logPath, 'w');
+    //   mcpServers[serverName].errlog = logFd;
+    // });
+
     // // Custom logger example
     // class SimpleConsoleLogger implements McpToolsLogger {
     //   constructor(private readonly prefix: string = 'MCP') {}
 
-    //   private createLogMethod(level: string) {
-    //     return (...args: unknown[]) => console.log(`\x1b[90m${level}:\x1b[0m`, ...args);
+    //   private log(level: string, ...args: unknown[]) {
+    //     console.log(`\x1b[90m${level}:\x1b[0m`, ...args);
     //   }
 
-    //   debug = this.createLogMethod('DEBUG');
-    //   info = this.createLogMethod('INFO');
-    //   warn = this.createLogMethod('WARN');
-    //   error = this.createLogMethod('ERROR');
+    //   public debug(...args: unknown[]) { this.log('DEBUG', ...args); }
+    //   public info(...args: unknown[]) { this.log('INFO', ...args); }
+    //   public warn(...args: unknown[]) { this.log('WARN', ...args); }
+    //   public error(...args: unknown[]) { this.log('ERROR', ...args); }
     // }
 
     const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
@@ -62,6 +70,7 @@ export async function test(): Promise<void> {
     // const { tools, cleanup } = await convertMcpToLangchainTools(
     //   mcpServers, { logger: new SimpleConsoleLogger()
     // });
+
     mcpCleanup = cleanup
 
     // const llm = new ChatAnthropic({
