@@ -48,7 +48,7 @@ export async function test(): Promise<void> {
     // Object.keys(mcpServers).forEach(serverName => {
     //   const logPath = `mcp-server-${serverName}.log`;
     //   const logFd = fs.openSync(logPath, 'w');
-    //   mcpServers[serverName].errlog = logFd;
+    //   mcpServers[serverName].stderr = logFd;
     // });
 
     // // Custom logger example
@@ -68,8 +68,8 @@ export async function test(): Promise<void> {
     const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
     // const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers, { logLevel: 'debug' });
     // const { tools, cleanup } = await convertMcpToLangchainTools(
-    //   mcpServers, { logger: new SimpleConsoleLogger()
-    // });
+    //   mcpServers, { logger: new SimpleConsoleLogger() }
+    // );
 
     mcpCleanup = cleanup
 
