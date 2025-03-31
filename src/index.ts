@@ -27,7 +27,8 @@ export async function test(): Promise<void> {
           '-y',
           '@modelcontextprotocol/server-filesystem',
           '.'  // path to a directory to allow access to
-        ]
+        ],
+        // cwd: '/tmp'  // the working directory to be use by the server
       },
       fetch: {
         command: 'uvx',
