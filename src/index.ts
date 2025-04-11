@@ -161,7 +161,7 @@ export async function test(): Promise<void> {
 /**
  * Start an MCP server process via supergateway with the specified transport
  * type.  Supergateway runs MCP stdio-based servers over SSE or WebSockets
- * and is used here to run the SSE/WS servers for connection testing.
+ * and is used here to run local SSE/WS servers for connection testing.
  * Ref: https://github.com/supercorp-ai/supergateway
  *
  * @param transportType - The transport type, either 'sse' or 'ws'
