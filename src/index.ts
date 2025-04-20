@@ -6,7 +6,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import * as child_process from 'child_process';
 import * as fs from "fs";
 import * as net from 'net';
-import WebSocket from 'ws';  // needed obly for WebSocket MCP test server
+import WebSocket from 'ws';  // needed only for WebSocket MCP test server
 
 
 import {

@@ -47,3 +47,16 @@ A python equivalent of this app is available
     ```bash
     npm start
     ```
+
+## Sample Code for SSE Authentiocation
+
+A simple example of showing how to implement an OAuth client provider and
+use it with the `langchain-mcp-tools` library can be found
+in [`src/sse-auth-test-client.ts`](src/sse-auth-test-client.ts).  
+
+For testing purposes, a sample MCP server with OAuth authentication support
+that works with the above client is provided
+in [`src/sse-auth-test-server.ts`](src/sse-auth-test-server.ts).  
+
+You can run the server with `npm run sse-auth-test-server`
+and the client with `npm run sse-auth-test-client`.
