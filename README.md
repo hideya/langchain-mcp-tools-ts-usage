@@ -9,8 +9,8 @@ This function handles parallel initialization of specified multiple MCP servers
 and converts their available tools into an array of LangChain-compatible tools
 ([`StructuredTool[]`](https://api.js.langchain.com/classes/_langchain_core.tools.StructuredTool.html)).
 
-Anthropic's `claude-3-5-sonnet-latest` is used as the LLM.
-For convenience, code for OpenAI's `gpt-4o` is also included and commented out.
+Anthropic's `claude-3-5-haiku-latest` is used as the LLM.
+For convenience, code for OpenAI's and Google's LLMs are also included and commented out.
 
 A bit more realistic (conversational) MCP Client is available
 [here](https://github.com/hideya/mcp-client-langchain-ts)
@@ -48,6 +48,19 @@ A python equivalent of this app is available
     npm start
     ```
 
+## Sample Code for Streamable HTTP Authentiocation
+
+A simple example of showing how to implement an OAuth client provider and
+use it with the `langchain-mcp-tools` library can be found
+in [`src/streamable-http-auth-test-client.ts`](src/streamable-http-auth-test-client.ts).  
+
+For testing purposes, a sample MCP server with OAuth authentication support
+that works with the above client is provided
+in [`src/streamable-http-auth-test-server.ts`](src/streamable-http-auth-test-server.ts).  
+
+You can run the server with `npm run test:streamable:server`
+and the client with `npm run test:streamable:client`.
+
 ## Sample Code for SSE Authentiocation
 
 A simple example of showing how to implement an OAuth client provider and
@@ -58,5 +71,5 @@ For testing purposes, a sample MCP server with OAuth authentication support
 that works with the above client is provided
 in [`src/sse-auth-test-server.ts`](src/sse-auth-test-server.ts).  
 
-You can run the server with `npm run sse-auth-test-server`
-and the client with `npm run sse-auth-test-client`.
+You can run the server with `npm run test:sse:server`
+and the client with `npm run test:sse:client`.

@@ -2,6 +2,7 @@ import "dotenv/config";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { HumanMessage } from "@langchain/core/messages";
 import { ChatAnthropic } from "@langchain/anthropic";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatOpenAI } from "@langchain/openai";
 import * as fs from "fs";
 
@@ -19,11 +20,12 @@ export async function test(): Promise<void> {
 
   // If you are interested in testing the SSE/WS server setup, uncomment
   // one of the following code snippets and one of the appropriate "weather"
-  // server configurations, while commenting out the one for the stdio server
+  // server configurations, while commenting out the others.
   //
   // const [sseServerProcess, sseServerPort] = await startRemoteMcpServerLocally(
   //   "SSE",  "npx -y @h1deya/mcp-server-weather")
   //
+  // global.WebSocket = WebSocket as any;
   // const [wsServerProcess, wsServerPort] = await startRemoteMcpServerLocally(
   //   "WS",  "npx -y @h1deya/mcp-server-weather")
 
@@ -44,6 +46,7 @@ export async function test(): Promise<void> {
           "mcp-server-fetch"
         ]
       },
+
       weather: {
         command: "npx",
         args: [
@@ -51,9 +54,23 @@ export async function test(): Promise<void> {
          "@h1deya/mcp-server-weather"
         ]
       },
+      
+      // // Auto-detection example: This will try Streamable HTTP first, then fallback to SSE
       // weather: {
       //   url: `http://localhost:${sseServerPort}/sse`
       // },
+      
+      // // THIS DOESN'T WORK: Example of explicit transport selection:
+      // weather: {
+      //   url: `http://localhost:${sseServerPort}/sse`,
+      //   transport: "streamable_http"  // Force Streamable HTTP
+      // },
+      
+      // weather: {
+      //   url: `http://localhost:${sseServerPort}/sse`,
+      //   transport: "sse"  // Force SSE
+      // },
+
       // weather: {
       //   url: `ws://localhost:${wsServerPort}/message`
       // },
@@ -92,21 +109,36 @@ export async function test(): Promise<void> {
 
     mcpCleanup = cleanup
 
-    // const llm = new ChatAnthropic({
-    //   model: "claude-3-7-sonnet-latest"
-    // });
-    const llm = new ChatOpenAI({
-      model: "o3-mini"
+    const llm = new ChatAnthropic({
+      // https://docs.anthropic.com/en/docs/about-claude/pricing
+      model: "claude-3-5-haiku-latest"
+      // model: "claude-sonnet-4-0"
     });
+
+    // const llm = new ChatOpenAI({
+    //   // https://platform.openai.com/docs/pricing
+    //   model: "gpt-4o-mini"
+    //   // model: "o4-mini"
+    // });
+
+    // const llm = new ChatGoogleGenerativeAI({
+    //   // https://ai.google.dev/gemini-api/docs/pricing
+    //   model: "gemini-2.0-flash"
+    //   // model: "gemini-2.5-pro-preview-06-05"
+    // });
 
     const agent = createReactAgent({
       llm,
       tools
     });
 
-    // const query = "Read the news headlines on bbc.com";
+    console.log("\x1b[32m");  // color to green
+    console.log("\nLLM model:", llm.constructor.name, llm.model);
+    console.log("\x1b[0m");  // reset the color
+
+    const query = "Read the news headlines on bbc.com";
     // const query = "Read and briefly summarize the LICENSE file";
-    const query = "Tomorrow's weather in SF?";
+    // const query = "Tomorrow's weather in SF?";
 
     console.log("\x1b[33m");  // color to yellow
     console.log(query);
