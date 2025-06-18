@@ -1,6 +1,6 @@
 {
   "name": "langchain-mcp-tools-ts-usage",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "description": "Simple MCP Client Using LangChain / TypeScript",
   "license": "MIT",
   "keywords": [
@@ -25,16 +25,18 @@
     "test:sse:client": "tsx src/sse-auth-test-client.ts"
   },
   "dependencies": {
-    "@h1deya/langchain-mcp-tools": "^0.2.5",
+    "@h1deya/langchain-mcp-tools": "^0.2.6",
     "@langchain/anthropic": "^0.3.11",
     "@langchain/google-genai": "^0.2.12",
     "@langchain/langgraph": "^0.2.39",
     "@langchain/openai": "^0.3.16",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "ws": "^8.18.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
+    "@types/ws": "^8.18.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

@@ -4,6 +4,7 @@ import { HumanMessage } from "@langchain/core/messages";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatOpenAI } from "@langchain/openai";
+import WebSocket from 'ws';
 import * as fs from "fs";
 
 import {
@@ -12,6 +13,7 @@ import {
   McpServerCleanupFn,
   McpToolsLogger
 } from "@h1deya/langchain-mcp-tools";
+
 import { startRemoteMcpServerLocally } from "./remote-server-utils";
 
 export async function test(): Promise<void> {
@@ -21,13 +23,17 @@ export async function test(): Promise<void> {
   // If you are interested in testing the SSE/WS server setup, uncomment
   // one of the following code snippets and one of the appropriate "weather"
   // server configurations, while commenting out the others.
-  //
+
   // const [sseServerProcess, sseServerPort] = await startRemoteMcpServerLocally(
-  //   "SSE",  "npx -y @h1deya/mcp-server-weather")
-  //
+  //   "SSE",  "npx -y @h1deya/mcp-server-weather");
+
+  // // NOTE: without the following line, I got this error:
+  // //   ReferenceError: WebSocket is not defined
+  // //     at <anonymous> (.../node_modules/@modelcontextprotocol/sdk/src/client/websocket.ts:29:26)
   // global.WebSocket = WebSocket as any;
+  //
   // const [wsServerProcess, wsServerPort] = await startRemoteMcpServerLocally(
-  //   "WS",  "npx -y @h1deya/mcp-server-weather")
+  //   "WS",  "npx -y @h1deya/mcp-server-weather");
 
   try {
     const mcpServers: McpServersConfig = {
@@ -40,6 +46,7 @@ export async function test(): Promise<void> {
         ],
         // cwd: "/tmp"  // the working directory to be use by the server
       },
+
       fetch: {
         command: "uvx",
         args: [
@@ -109,17 +116,17 @@ export async function test(): Promise<void> {
 
     mcpCleanup = cleanup
 
-    const llm = new ChatAnthropic({
-      // https://docs.anthropic.com/en/docs/about-claude/pricing
-      model: "claude-3-5-haiku-latest"
-      // model: "claude-sonnet-4-0"
-    });
-
-    // const llm = new ChatOpenAI({
-    //   // https://platform.openai.com/docs/pricing
-    //   model: "gpt-4o-mini"
-    //   // model: "o4-mini"
+    // const llm = new ChatAnthropic({
+    //   // https://docs.anthropic.com/en/docs/about-claude/pricing
+    //   model: "claude-3-5-haiku-latest"
+    //   // model: "claude-sonnet-4-0"
     // });
+
+    const llm = new ChatOpenAI({
+      // https://platform.openai.com/docs/pricing
+      model: "gpt-4o-mini"
+      // model: "o4-mini"
+    });
 
     // const llm = new ChatGoogleGenerativeAI({
     //   // https://ai.google.dev/gemini-api/docs/pricing
@@ -136,9 +143,9 @@ export async function test(): Promise<void> {
     console.log("\nLLM model:", llm.constructor.name, llm.model);
     console.log("\x1b[0m");  // reset the color
 
-    const query = "Read the news headlines on bbc.com";
+    // const query = "Read the news headlines on bbc.com";
     // const query = "Read and briefly summarize the LICENSE file";
-    // const query = "Tomorrow's weather in SF?";
+    const query = "Tomorrow's weather in SF?";
 
     console.log("\x1b[33m");  // color to yellow
     console.log(query);
