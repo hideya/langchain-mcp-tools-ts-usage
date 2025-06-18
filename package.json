@@ -18,18 +18,20 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
-    "sse-auth-test-client": "tsx src/sse-auth-test-client.ts",
-    "sse-auth-test-server": "tsx src/sse-auth-test-server.ts",
-    "clean": "git clean -fdxn -e .env && read -p 'OK?' && git clean -fdx -e .env"
+    "clean": "git clean -fdxn -e .env && read -p 'OK?' && git clean -fdx -e .env",
+    "test:streamable:server": "tsx src/streamable-http-auth-test-server.ts",
+    "test:streamable:client": "tsx src/streamable-http-auth-test-client.ts",
+    "test:sse:server": "tsx src/sse-auth-test-server.ts",
+    "test:sse:client": "tsx src/sse-auth-test-client.ts"
   },
   "dependencies": {
-    "@h1deya/langchain-mcp-tools": "^0.2.4",
+    "@h1deya/langchain-mcp-tools": "^0.2.5",
     "@langchain/anthropic": "^0.3.11",
+    "@langchain/google-genai": "^0.2.12",
     "@langchain/langgraph": "^0.2.39",
     "@langchain/openai": "^0.3.16",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "ws": "^8.18.1"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
