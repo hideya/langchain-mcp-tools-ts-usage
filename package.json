@@ -1,6 +1,6 @@
 {
   "name": "langchain-mcp-tools-ts-usage",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Simple MCP Client Using LangChain / TypeScript",
   "license": "MIT",
   "keywords": [
@@ -23,7 +23,7 @@
     "test:streamable:client": "tsx src/streamable-http-auth-test-client.ts"
   },
   "dependencies": {
-    "@h1deya/langchain-mcp-tools": "^0.2.7",
+    "@h1deya/langchain-mcp-tools": "^0.2.8",
     "@langchain/anthropic": "^0.3.11",
     "@langchain/google-genai": "^0.2.12",
     "@langchain/langgraph": "^0.2.39",
