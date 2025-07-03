@@ -11,7 +11,8 @@ import {
   convertMcpToLangchainTools,
   McpServersConfig,
   McpServerCleanupFn,
-  McpToolsLogger
+  McpToolsLogger,
+  LlmProvider
 } from "@h1deya/langchain-mcp-tools";
 
 import { startRemoteMcpServerLocally } from "./remote-server-utils";
@@ -81,8 +82,15 @@ export async function test(): Promise<void> {
       // },
 
       // weather: {
-      //   url: `ws://localhost:${wsServerPort}/message`
+      //   url: `ws://localhost:${wsServerPort}/message`,
       //   // optionally `transport: "ws"` or `type: "ws"`
+      // },
+
+      // // https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search
+      // "brave-search": {
+      //     "command": "npx",
+      //     "args": [ "-y", "@modelcontextprotocol/server-brave-search"],
+      //     "env": { "BRAVE_API_KEY": `${process.env.BRAVE_API_KEY}` }
       // },
 
       // // Example of authentication via Authorization header
@@ -94,6 +102,17 @@ export async function test(): Promise<void> {
       //   headers: {
       //     "Authorization": `Bearer ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`
       //   }
+      // },
+
+      // notion: {
+      //   "command": "npx",
+      //   "args": ["-y", "@notionhq/notion-mcp-server"],
+      //   "env": {
+      //     // Although the following implies that this MCP server is designed for
+      //     // OpenAI LLMs, it works fine with others models.
+      //     // Tested Claude and Gemini (with schema adjustments).
+      //     "OPENAPI_MCP_HEADERS": `{"Authorization": "Bearer ${process.env.NOTION_INTEGRATION_SECRET}", "Notion-Version": "2022-06-28"}`
+      //   },
       // },
     };
 
@@ -109,7 +128,7 @@ export async function test(): Promise<void> {
     //     openedLogFiles[logPath] = logFd;
     //   }
     // });
-    //
+
     // // A very simple custom logger example (optional)
     // class SimpleConsoleLogger implements McpToolsLogger {
     //   constructor(private readonly prefix: string = "MCP") {}
@@ -122,13 +141,7 @@ export async function test(): Promise<void> {
     //   public error(...args: unknown[]) { this.log("ERROR", ...args); }
     // }
 
-    const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers);
-    // const { tools, cleanup } = await convertMcpToLangchainTools(mcpServers, { logLevel: "debug" });
-    // const { tools, cleanup } = await convertMcpToLangchainTools(
-    //   mcpServers, { logger: new SimpleConsoleLogger() }
-    // );
-
-    mcpCleanup = cleanup
+    // Uncomment one of the following and select the LLM to use
 
     // const llm = new ChatAnthropic({
     //   // https://docs.anthropic.com/en/docs/about-claude/pricing
@@ -137,19 +150,36 @@ export async function test(): Promise<void> {
     //   // model: "claude-sonnet-4-0"
     // });
 
-    const llm = new ChatOpenAI({
-      // https://platform.openai.com/docs/pricing
-      // https://platform.openai.com/settings/organization/billing/overview
-      model: "gpt-4o-mini"
-      // model: "o4-mini"
+    // const llm = new ChatOpenAI({
+    //   // https://platform.openai.com/docs/pricing
+    //   // https://platform.openai.com/settings/organization/billing/overview
+    //   model: "gpt-4o-mini"
+    //   // model: "o4-mini"
+    // });
+
+    const llm = new ChatGoogleGenerativeAI({
+      // https://ai.google.dev/gemini-api/docs/pricing
+      // https://console.cloud.google.com/billing
+      model: "gemini-2.5-flash"
+      // model: "gemini-2.5-pro"
     });
 
-    // const llm = new ChatGoogleGenerativeAI({
-    //   // https://ai.google.dev/gemini-api/docs/pricing
-    //   // https://console.cloud.google.com/billing
-    //   model: "gemini-2.0-flash"
-    //   // model: "gemini-1.5-pro"
-    // });
+    let llmProvider: LlmProvider = "none";
+    if (llm instanceof ChatAnthropic) {
+      llmProvider = "anthropic";
+    } else if (llm as object instanceof ChatOpenAI) {
+      llmProvider = "openai";
+    } else if (llm as object instanceof ChatGoogleGenerativeAI) {
+      llmProvider = "google_genai";
+    } 
+
+    const { tools, cleanup } = await convertMcpToLangchainTools(
+      mcpServers, { llmProvider }
+      // mcpServers, { llmProvider, logLevel: "debug" }  // Usage example of logLevel
+      // mcpServers, { llmProvider, logger: new SimpleConsoleLogger() }  // Usage example of a custom logger
+    );
+
+    mcpCleanup = cleanup
 
     const agent = createReactAgent({
       llm,
@@ -160,9 +190,11 @@ export async function test(): Promise<void> {
     console.log("\nLLM model:", llm.constructor.name, llm.model);
     console.log("\x1b[0m");  // reset the color
 
-    // const query = "Read the news headlines on bbc.com";
+    const query = "Read the news headlines on bbc.com";
     // const query = "Read and briefly summarize the LICENSE file";
-    const query = "Are there any weather alerts in California?";
+    // const query = "Are there any weather alerts in California?";
+    // const query = "What's the news from Tokyo today?";
+    // const query = "Tell me about my Notion account";
 
     console.log("\x1b[33m");  // color to yellow
     console.log(query);
@@ -190,7 +222,8 @@ export async function test(): Promise<void> {
         console.error(`Error closing log file: ${logPath}:`, error);
       }
     });
-    // the followings only needed when testing the `url` key
+
+    // the following only needed when testing the `url` key
     if (typeof sseServerProcess !== 'undefined') {
       sseServerProcess.kill();
     }
