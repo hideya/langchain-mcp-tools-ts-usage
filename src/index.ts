@@ -153,7 +153,7 @@ export async function test(): Promise<void> {
     // const llm = new ChatOpenAI({
     //   // https://platform.openai.com/docs/pricing
     //   // https://platform.openai.com/settings/organization/billing/overview
-    //   model: "gpt-4o-mini"
+    //   model: "gpt-4.1-nano"
     //   // model: "o4-mini"
     // });
 
