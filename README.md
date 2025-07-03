@@ -9,8 +9,8 @@ This function handles parallel initialization of specified multiple MCP servers
 and converts their available tools into an array of LangChain-compatible tools
 ([`StructuredTool[]`](https://api.js.langchain.com/classes/_langchain_core.tools.StructuredTool.html)).
 
-Anthropic's `claude-3-5-haiku-latest` is used as the LLM.
-For convenience, code for OpenAI's and Google's LLMs are also included and commented out.
+Google GenAI's `gemini-2.5-flash` is used as the LLM.
+For convenience, code for OpenAI's and Anthropic's LLMs are also included and commented out.
 
 A bit more realistic (conversational) MCP Client is available
 [here](https://github.com/hideya/mcp-client-langchain-ts)
@@ -20,8 +20,8 @@ A python equivalent of this app is available
 
 ## Prerequisites
 
-- Node.js 16+
-- npm 7+ (`npx`) to run Node.js-based MCP servers
+- Node.js 18+
+- npm 8+ (`npx`) to run Node.js-based MCP servers
 - [optional] [`uv` (`uvx`)](https://docs.astral.sh/uv/getting-started/installation/)
   installed to run Python-based MCP servers
 - API key from [Anthropic](https://console.anthropic.com/settings/keys)
@@ -48,7 +48,7 @@ A python equivalent of this app is available
     npm start
     ```
 
-## Sample Code for Streamable HTTP Authentiocation
+## Simple Exapmle Code for Streamable HTTP Authentiocation
 
 A simple example of showing how to implement an OAuth client provider and
 use it with the `langchain-mcp-tools` library can be found
