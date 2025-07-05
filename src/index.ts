@@ -55,7 +55,7 @@ export async function test(): Promise<void> {
         ]
       },
 
-      weather: {
+      "us-weather": {  // US weather only
         command: "npx",
         args: [
           "-y",
@@ -64,25 +64,25 @@ export async function test(): Promise<void> {
       },
       
       // // Auto-detection example: This will try Streamable HTTP first, then fallback to SSE
-      // weather: {
+      // "us-weather": {
       //   url: `http://localhost:${sseServerPort}/sse`
       // },
       
       // // THIS DOESN'T WORK: Example of explicit transport selection:
-      // weather: {
+      // "us-weather": {
       //   url: `http://localhost:${streamableHttpServerPort}/mcp`,
       //   transport: "streamable_http"  // Force Streamable HTTP
       //   // type: "http"  // VSCode-style config also works instead of the above
       // },
       
-      // weather: {
+      // "us-weather": {
       //   url: `http://localhost:${sseServerPort}/sse`,
       //   transport: "sse"  // Force SSE
       //   // type: "sse"  // This also works instead of the above
       // },
 
-      // weather: {
-      //   url: `ws://localhost:${wsServerPort}/message`,
+      // "us-weather": {
+      //   url: `ws://localhost:${wsServerPort}/message`
       //   // optionally `transport: "ws"` or `type: "ws"`
       // },
 

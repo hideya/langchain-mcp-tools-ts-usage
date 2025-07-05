@@ -8,6 +8,8 @@ It leverages a utility function `convertMcpToLangchainTools()` from
 This function handles parallel initialization of specified multiple MCP servers
 and converts their available tools into an array of LangChain-compatible tools
 ([`StructuredTool[]`](https://api.js.langchain.com/classes/_langchain_core.tools.StructuredTool.html)).
+It also performs LLM provider-specific schema transformations
+to prevent [schema compatibility issues](https://github.com/hideya/langchain-mcp-tools-ts/blob/main/README.md#llm-provider-schema-compatibility)
 
 Google GenAI's `gemini-2.5-flash` is used as the LLM.
 For convenience, code for OpenAI's and Anthropic's LLMs are also included and commented out.
