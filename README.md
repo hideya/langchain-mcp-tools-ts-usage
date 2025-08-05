@@ -26,8 +26,12 @@ A python equivalent of this app is available
 - npm 8+ (`npx`) to run Node.js-based MCP servers
 - [optional] [`uv` (`uvx`)](https://docs.astral.sh/uv/getting-started/installation/)
   installed to run Python-based MCP servers
-- API key from [Anthropic](https://console.anthropic.com/settings/keys)
-  (or [OpenAI](https://platform.openai.com/api-keys))
+- LLM API keys from
+  [OpenAI](https://platform.openai.com/api-keys),
+  [Anthropic](https://console.anthropic.com/settings/keys),
+  and/or
+  [Google GenAI](https://aistudio.google.com/apikey)
+  as needed
 
 ## Usage
 
