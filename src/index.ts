@@ -105,15 +105,15 @@ export async function test(): Promise<void> {
       //   }
       // },
 
+      // // NOTE: comment out "fetch" when you use "notion".
+      // // They both have a tool named "fetch," which causes a conflict.
+      //
       // notion: {
       //   "command": "npx",
       //   "args": ["-y", "@notionhq/notion-mcp-server"],
       //   "env": {
-      //     // Although the following implies that this MCP server is designed for
-      //     // OpenAI LLMs, it works fine with others models.
-      //     // Tested Claude and Gemini (with schema adjustments).
-      //     "OPENAPI_MCP_HEADERS": `{"Authorization": "Bearer ${process.env.NOTION_INTEGRATION_SECRET}", "Notion-Version": "2022-06-28"}`
-      //   },
+      //     "NOTION_TOKEN": `${process.env.NOTION_INTEGRATION_SECRET}`
+      //   }
       // },
     };
 
