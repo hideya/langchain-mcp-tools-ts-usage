@@ -1,6 +1,6 @@
 {
   "name": "langchain-mcp-tools-ts-usage",
-  "version": "0.3.4",
+  "version": "0.3.9",
   "description": "Simple MCP Client Using LangChain / TypeScript",
   "license": "MIT",
   "keywords": [
