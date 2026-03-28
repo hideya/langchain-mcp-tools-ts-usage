@@ -82,8 +82,8 @@ export async function test(): Promise<void> {
       "Read and briefly summarize the LICENSE file in the current directory",
       "Fetch the raw HTML content from bbc.com and tell me the titile",
       // "Search for 'news in California' and show the first hit",
-      // "Tell me about my default GitHub profile",
-      // "Tell me about my default Notion account",
+      // "Tell me about my authenticated GitHub profile",
+      // "Tell me about my authenticated Notion account",
       // "Tell me which tables I have in my Airtable account",
     ]
 
@@ -117,28 +117,28 @@ export async function test(): Promise<void> {
     const model = new ChatOpenAI({
       // https://developers.openai.com/api/docs/pricing
       // https://platform.openai.com/settings/organization/billing/overview
-      model: "gpt-5-mini"
+      model: "gpt-5.4-mini"
       // model: "gpt-5.2"
     });
 
     // const model = new ChatAnthropic({
     //   // https://platform.claude.com/docs/en/about-claude/models/overview
     //   // https://console.anthropic.com/settings/billing
-    //   model: "claude-3-5-haiku-latest"
+    //   model: "claude-sonnet-4-6"
     //   // model: "claude-haiku-4-5"
     // });
 
     // const model = new ChatGoogleGenerativeAI({
     //   // https://ai.google.dev/gemini-api/docs/pricing
     //   // https://console.cloud.google.com/billing
-    //   model: "gemini-2.5-flash"
-    //   // model: "gemini-3-flash-preview"
+    //   model: "gemini-3.1-flash-lite-preview"
+    //   // model: "gemini-2.5-flash"
     // });
 
     // const model = new ChatXAI({
     //   // https://docs.x.ai/developers/models
-    //   // model: "grok-3-mini"
     //   model: "grok-4-1-fast-non-reasoning"
+    //   // model: "grok-3-mini"
     // });
 
     let llmProvider: LlmProvider = "none";

@@ -1,6 +1,6 @@
 {
   "name": "langchain-mcp-tools-ts-usage",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Simple MCP Client Using LangChain / TypeScript",
   "license": "MIT",
   "keywords": [
@@ -21,13 +21,13 @@
     "clean": "git clean -fdxn -e .env && read -p 'OK? ' && git clean -fdx -e .env"
   },
   "dependencies": {
-    "@h1deya/langchain-mcp-tools": "^0.4.1",
-    "@langchain/anthropic": "^1.3.17",
-    "@langchain/google-genai": "^2.1.18",
-    "@langchain/openai": "^1.2.7",
-    "@langchain/xai": "^1.3.3",
+    "@h1deya/langchain-mcp-tools": "^0.4.2",
+    "@langchain/anthropic": ">=1.3.17",
+    "@langchain/google-genai": ">=2.1.18",
+    "@langchain/openai": ">=1.2.7",
+    "@langchain/xai": ">=1.3.3",
     "dotenv": "^16.4.7",
-    "langchain": "^1.2.23"
+    "langchain": ">=1.2.23"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

@@ -11,7 +11,7 @@ and converts their available tools into an array of LangChain-compatible tools
 It also performs LLM provider-specific schema transformations
 to prevent [schema compatibility issues](https://github.com/hideya/langchain-mcp-tools-ts/blob/main/README.md#llm-provider-schema-compatibility)
 
-Google GenAI's `gemini-2.5-flash` is used as the LLM.
+OpenAI's `gpt-5.4-mini` is used as the LLM.
 For convenience, code for OpenAI's and Anthropic's LLMs are also included and commented out.
 
 A bit more realistic (conversational) MCP Client is available
@@ -24,13 +24,16 @@ A python equivalent of this app is available
 
 - Node.js 18+
 - npm 8+ (`npx`) to run Node.js-based MCP servers
+- [optional] [npm 7+ (`npx`)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  to run Node.js package-based local MCP servers
 - [optional] [`uv` (`uvx`)](https://docs.astral.sh/uv/getting-started/installation/)
   installed to run Python-based MCP servers
 - LLM API keys from
   [OpenAI](https://platform.openai.com/api-keys),
   [Anthropic](https://console.anthropic.com/settings/keys),
+  [Google GenAI](https://aistudio.google.com/apikey),
   and/or
-  [Google GenAI](https://aistudio.google.com/apikey)
+  [xAI](https://console.x.ai/)
   as needed
 
 ## Usage
@@ -54,15 +57,6 @@ A python equivalent of this app is available
     npm start
     ```
 
-## Simple Exapmle Code for Streamable HTTP Authentiocation
+## License
 
-A simple example of showing how to implement an OAuth client provider and
-use it with the `langchain-mcp-tools` library can be found
-in [`src/streamable-http-auth-test-client.ts`](src/streamable-http-auth-test-client.ts).  
-
-For testing purposes, a sample MCP server with OAuth authentication support
-that works with the above client is provided
-in [`src/streamable-http-auth-test-server.ts`](src/streamable-http-auth-test-server.ts).  
-
-You can run the server with `npm run test:streamable:server`
-and the client with `npm run test:streamable:client`.
+[MIT](./LICENSE)
