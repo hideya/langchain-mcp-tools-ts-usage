@@ -1,4 +1,4 @@
-import "dotenv/config";
+import { shutdownAgentPondTracing } from "./instrumentation.js";
 import { createAgent, HumanMessage } from "langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
@@ -196,6 +196,8 @@ export async function test(): Promise<void> {
         console.error(`Error closing log file: ${logPath}:`, error);
       }
     });
+
+    await shutdownAgentPondTracing();
   }
 }
 

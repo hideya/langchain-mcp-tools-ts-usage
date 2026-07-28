@@ -21,12 +21,19 @@
     "clean": "git clean -fdxn -e .env && read -p 'OK? ' && git clean -fdx -e .env"
   },
   "dependencies": {
+    "@agentpond/files-sdk": "^0.1.0",
+    "@agentpond/otel": "^0.1.4",
+    "@arizeai/openinference-instrumentation-langchain": "^4.0.14",
     "@h1deya/langchain-mcp-tools": "^0.4.2",
     "@langchain/anthropic": ">=1.3.17",
     "@langchain/google-genai": ">=2.1.18",
     "@langchain/openai": ">=1.2.7",
     "@langchain/xai": ">=1.3.3",
+    "@opentelemetry/resources": "^2.10.0",
+    "@opentelemetry/sdk-trace-base": "^2.10.0",
+    "@opentelemetry/sdk-trace-node": "^2.10.0",
     "dotenv": "^16.4.7",
+    "files-sdk": "^2.2.1",
     "langchain": ">=1.2.23"
   },
   "devDependencies": {

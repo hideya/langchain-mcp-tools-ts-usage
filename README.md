@@ -57,6 +57,32 @@ A python equivalent of this app is available
     npm start
     ```
 
+## AgentPond tracing
+
+The example can export OpenInference traces directly to storage owned by you
+with [AgentPond](https://github.com/marcusschiesser/agentpond). Tracing is
+opt-in and starts only when a Files SDK environment is loaded:
+
+```bash
+npx agentpond init
+npx agentpond env init local \
+  --provider fs \
+  --root "$PWD/.agentpond/envs/local/objects"
+npx agentpond env use local
+
+eval "$(npx agentpond env get local)"
+npm start
+
+npx agentpond sync
+npx agentpond traces list --limit 10
+```
+
+Use the local `fs` provider only for development. A deployed trusted Node.js
+process should use a persistent provider from the
+[Files SDK provider catalog](https://files-sdk.dev/docs/providers). Because
+OpenInference records model and tool inputs and outputs, review their
+sensitivity before enabling tracing in production.
+
 ## License
 
 [MIT](./LICENSE)
